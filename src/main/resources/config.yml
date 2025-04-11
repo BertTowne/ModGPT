@@ -1,5 +1,128 @@
-openai:
-  # Get Your key at https://beta.openai.com/account/api-keys
-  key: ''
-  # stable or latest
-  model: latest
+# Get a key for free at https://platform.openai.com/api-keys
+openai-key: ''
+    
+settings:
+    reviewing:
+        # Once a message is flagged by ModGPT, it must then be confirmed by a moderator in-game.
+        # The message will not be sent to chat unless a moderator allows it through, or the review
+        # timeout is reached. This setting determines whether the review system is enabled.
+        enabled: true
+        
+        # Whether to show the usernames of the players who sent the flagged messages to those
+        # reviewing them. This can be useful for context, but it may also bias the review.
+        # Players with the 'modgpt.admin' permission will always see the usernames.
+        show-usernames: false
+        
+        # While a player's message is under review, further chat messages from them will be
+        # prevented.
+        # WARNING: THIS WILL BE SET TO FALSE IF THE REVIEW TIMEOUT IS DISABLED.
+        mute-while-reviewing: true
+        
+        # The amount of time, in seconds, that a message will be held for review before it is
+        # automatically allowed through. Set to -1 to disable the timeout. If the timeout is
+        # disabled, the message will only be allowed through if a moderator confirms it.
+        review-timeout: 30
+
+# All the policies that ModGPT can filter for based on OpenAI's moderation endpoint.
+# https://platform.openai.com/docs/guides/moderation/moderation#content-classifications
+policies:
+    # Content that expresses, incites, or promotes hate based on race, gender, ethnicity,
+    # religion, nationality, sexual orientation, disability status, or caste.
+    hate:
+        # Whether to filter hateful messages or not.
+        filter: true
+
+        # -1 to auto-detect based on OpenAI's suggested confidence.
+        # 0.0-1.0 to provide a custom threshold, where higher values
+        # denote higher confidence that this policy was violated.
+        threshold: -1
+
+        # Commands to automatically run if this policy is violated.
+        # Use '%p' as a placeholder for the violating player's name.
+        # If no commands are specified, the message will simply be filtered out when this policy is violated.
+        auto-run:
+            - ''
+
+    # Hateful content that also includes violence or serious harm towards the targeted
+    # group.
+    hate-threatening:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+        
+    # Content that expresses, incites, or promotes harassing language towards any target.
+    harrassment:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+    
+    # Harassment content that also includes violence or serious harm towards any target.
+    harrassment-threatening:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+
+    # Content that promotes, encourages, or depicts acts of self-harm, such as suicide,
+    # cutting, and eating disorders.
+    self-harm:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+    
+    # Content where the speaker expresses that they are engaging or intend to engage in
+    # acts of self-harm, such as suicide, cutting, and eating disorders.
+    self-harm-intent:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+        
+    # Content that encourages performing acts of self-harm, such as suicide, cutting,
+    # and eating disorders, or that gives instructions or advice on how to commit such acts.
+    self-harm-instructing:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+
+    # Content meant to arouse sexual excitement, such as the description of sexual
+    # activity, or that promotes sexual services (excluding sex education and wellness).
+    sexual:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+
+    # Sexual content that includes an individual who is under 18 years old.
+    # Use this if you want to allow sexual content, but excluding that involving minors.
+    sexual-minors:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+
+    # Content that depicts death, violence, or physical injury.
+    violence:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+
+    # Content that depicts death, violence, or physical injury in graphic detail.
+    violence-graphic:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''
+        
+    # Content that gives advice or instruction on how to commit illicit acts.
+    # A phrase like "how to shoplift" would fit this category.
+    illicit:
+        filter: true
+        threshold: -1
+        auto-run:
+            - ''

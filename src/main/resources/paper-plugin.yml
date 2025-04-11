@@ -1,0 +1,8 @@
+name: ModGPT
+description: Moderate chat with the power of AI
+main: com.berttowne.modgpt.ModGPT
+version: '${project.version}'
+author: BlameBert
+api-version: '1.21.4'
+folia-supported: true
+loader: com.berttowne.modgpt.ModGPTLoader
